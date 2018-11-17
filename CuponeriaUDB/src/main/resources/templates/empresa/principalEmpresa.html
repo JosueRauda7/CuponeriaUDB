@@ -5,6 +5,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<ul th:each="empresas : ${lista}">
+<li th:text="${empresas.nombreEmpresa}">
+</ul>
 
 </body>
 </html>
