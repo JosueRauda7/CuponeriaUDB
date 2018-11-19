@@ -7,13 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import sv.edu.udb.www.CuponeriaUDB.entities.Empleado;
-import sv.edu.udb.www.CuponeriaUDB.entities.Empresas;
 
-
-@Repository("EmpresaRepository")
-public interface EmpresaRepository extends JpaRepository<Empresas, String>{
+@Repository("EmpleadoRepository")
+public interface EmpleadoRepository extends JpaRepository<Empleado, String> {
 	
-	@Query("SELECT e FROM Empresas e WHERE e.usuarios.idUsuario=?1")
-	public abstract Empresas encontrarPorUsuario(int id);
-
+	@Query("SELECT e FROM Empleado e WHERE e.empresas.codigoEmpresa=?1")
+	public abstract List<Empleado> encontrarPorEmpresa(String codigo);
 }

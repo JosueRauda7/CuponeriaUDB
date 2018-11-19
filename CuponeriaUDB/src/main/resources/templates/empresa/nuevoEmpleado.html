@@ -92,72 +92,55 @@
 		<!--/nav-->
 	</header>
 	<!--/header-->
-	<section style="margin-top: 5%;">
-		<div class="container" style="background-color: white; color: black;">
-			<div class="row ">
-				<h3 style="color: #c2185b; text-align: center;">Lista de
-					empleados</h3>
-			</div>
+	<section>
+		<div class="panel panel-default col-lg-6 col-sm-offset-3"
+			style="margin-top: 5%; margin-bottom: 5%;">
 			<div class="row">
-				<div class="col-md-14" style="padding: 1%;">
-					<a type="button" class="btn btn-primary btn-md" th:href="@{/empresa/nuevo}">Nuevo
-						Empleado</a> <br> <br>
-					<table
-						class="table table-striped table-bordered table-hover table-responsive table-condensed"
-						id="tabla">
-						<thead>
-							<tr style="background-color: black; color: white;">
-								<th>Id empleado</th>
-								<th>Nombre</th>
-								<th>Apellido</th>
-								<th>Correo</th>
-								<th>Empresa</th>
-								<th>Operaciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="empleado : ${lista}" style="color: #c2185b;">
-								<td th:text="${empleado.idEmpleado}"></td>
-								<td th:text="${empleado.nombreEmpleado}"></td>
-								<td th:text="${empleado.apellidoEmpleado}"></td>
-								<td th:text="${empleado.usuarios.correo}"></td>
-								<td th:text="${empleado.empresas.nombreEmpresa}"></td>
-								<td><a class="btn btn-info"
-									href="${pageContext.request.contextPath}/empresas.do?operacion=obtener&id=${empleado.idEmpleado}"><span
-										class="glyphicon glyphicon-edit"> </span>Editar</a> <a
-									class="btn btn-danger"
-									href="javascript:eliminar('${empleados.idEmpleado}')"> <span
-										class="glyphicon glyphicon-trash"></span>Eliminar</a></td>
-						</tbody>
-					</table>
+				<div class="thumbnail">
+					<h2 style="color: #c2185b;">Nuevo Empleado</h2>
 				</div>
+			
+				<form th:action="@{/empresa/agredar}" th:object="${empleado}" method="POST"
+					style="padding: 5%;">
+					<input type="hidden" name="operacion" value="insertarE" />
+					<div class="col-md-12" style="padding-bottom: 3%;">
+						<div class="well well-sm">
+							<strong style="color: purple;"><span
+								class="glyphicon glyphicon-asterisk"></span>Campos requeridos</strong>
+						</div>
+						<div class="form-group">
+							<label for="nombre" style="color: black;">Nombres:</label>
+							<div class="input-group">
+								<input type="text" name="nombre" id="nombre" class="form-control" th:field="*{nombreEmpleado}" /> <span
+									class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="apellido" style="color: black;">Apellidos:</label>
+							<div class="input-group">
+								<input type="text" name="apellido" id="apellido"
+									class="form-control" th:field="*{apellidoEmpleado}"  /> <span
+									class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="correo" style="color: black;">Correo:</label>
+							<div class="input-group">
+								<input type="text" name="correo" id="correo"
+									class="form-control" th:field="*{usuarios.correo}"  /> <span
+									class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span>
+							</div>
+						</div>
+						<button type="submit" class="btn"
+							style="background-color: #c2185b">Registrar</button>
+						<button type="reset" class="btn btn-info">Limpiar</button>
+					</div>
+				</form>
 
 			</div>
-			<!--<script>
-				$(document).ready(function() {
-					$('#tabla').DataTable();
-				});
-				<c:if test="${not empty exito}">
-				alertify.success('${exito}');
-				<c:set var="exito" value="" scope="session"/>
-				</c:if>
-				<c:if test="${not empty fracaso}">
-				alertify.error('${fracaso}');
-				<c:set var="fracaso" value="" scope="session"/>
-				</c:if>
-				function eliminar(id) {
-					alertify
-							.confirm(
-									'¿Realmente desea eliminar este empleado?',
-									function(e) {
-										if (e) {
-											location.href = "empresas.do?operacion=eliminarEmpleado&id="
-													+ id;
-										}
-									});
-				}
-			</script>
-			-->
 		</div>
 	</section>
 </body>
