@@ -21,7 +21,7 @@ public class EmpresaController {
 	
 	@GetMapping("/index")
 	public String indexEmpresa(Model model) {
-		model.addAttribute("lista", empresaRepository.findAllByOrderByNombreEmpresa());
-		return "/empresa/principalEmpresa";
+		model.addAttribute("lista", empresaRepository.findAllByOrderByNombreEmpleado());
+		return "empresa/principalEmpresa";
 	}
 }
