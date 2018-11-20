@@ -23,6 +23,9 @@ public class EmpleadoController {
 	@Autowired
 	@Qualifier("EmpleadoRepository")	
 	EmpleadoRepository empleadoRepository;
+	
+	@Autowired
+	@Qualifier("CuponesRepository")	
 	CuponesRepository cuponesRepository;
 	
 	@GetMapping("/index")
@@ -41,7 +44,7 @@ public class EmpleadoController {
 	@PostMapping("/obtenerCupon")
 	public String obtenerCupon(@Valid @ModelAttribute("cupon") Cupones cupones, Model model)  {
 		
-		model.addAttribute("cupones", cuponesRepository.findAllByCodigoCupo(cupones.getCodigoCupo()));
+		model.addAttribute("cupon", cuponesRepository.findAllByCodigoCupo(cupones.getCodigoCupo()));
 		
 		return "empleado/canjearCupon";
 	}
