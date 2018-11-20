@@ -4,10 +4,10 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-<meta charset="UTF-8">
+<meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Canjear Cup贸n</title>
+<title>Canjear Cup髇</title>
 
 <!-- CSS -->
 <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
@@ -54,13 +54,13 @@
 				<div class="collapse navbar-collapse navbar-right">
 					<ul class="nav navbar-nav">
 						<li class="scroll"><a href="">Home</a></li>
-						<li class="scroll"><a href="">Canjear cup贸n</a></li>
+						<li class="scroll"><a href="">Canjear cup髇</a></li>
 						<li></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Usuario <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="">Cambiar contrase帽a</a></li>
-								<li><a href="">Cerrar sesi贸n</a></li>
+								<li><a href="">Cambiar contrase馻</a></li>
+								<li><a href="">Cerrar sesi髇</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -70,24 +70,22 @@
 	<div id="formularioCanje">
 		<div class="container-fluid">
 			<div class="row">
-				<h3 class="h3">Canjear cup贸n</h3>
+				<h3 class="h3">Canjear cup髇</h3>
 			</div>
 			<div class="row">
 				<div class="col-md-7">
-					<!--<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Campos requeridos</strong></div>-->
-					<form role="form" action="#"  method="GET">
+					<form role="form" action="#" th:action="@{/empleado/obtenerCupon}" th:object="${cupon}" method="GET">
 						<input type="hidden" name="operacion" value="obtener" />
 						<div class="form-group" id="codigoCupon">
 							<div class="form-group">
 								<input type="text" class="form-control col-md-7" name="codigo"
-									id="codigo"  placeholder="Ingresa el c贸digo del cup贸n">
+									id="codigo" th:field="*{codigoCupo}" placeholder="Ingresa el c骴igo del cup髇">
 							</div>
 							<input type="submit" class="btn btn-info" id="verificar"
 								value="Verificar" name="Verificar">
 						</div>
 						<br>
 					</form>
-					<h1>Entr贸</h1>
 				</div>
 			</div>
 		</div>

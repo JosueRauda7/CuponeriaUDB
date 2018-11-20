@@ -42,7 +42,7 @@ public class Empleado  implements java.io.Serializable {
        this.apellidoEmpleado = apellidoEmpleado;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+    @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="IdEmpleado", unique=true, nullable=false)
