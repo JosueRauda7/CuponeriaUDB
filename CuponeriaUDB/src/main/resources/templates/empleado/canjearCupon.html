@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Canjear Cupón</title>
+
+<!-- CSS -->
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+<link th:href="@{/css/animate.min.css}" rel="stylesheet">
+<link th:href="@{/css/prettyPhoto.css}" rel="stylesheet">
+<link th:href="@{/css/styles.css}" rel="stylesheet">
+<link th:href="@{/css/dataTables.bootstrap.min.css}" rel="stylesheet"
+	type="text/css" />
+<link th:href="@{/css/alertify.core.css}" rel="stylesheet"
+	type="text/css" />
+<link th:href="@{/css/alertify.default.css}" rel="stylesheet"
+	type="text/css" />
+<link th:href="@{/css/estiloEmpleado.css}" rel="stylesheet"
+	type="text/css" />
+
+<!-- JS -->
+<script th:src="@{/js/alertify.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery-1.12.0.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.dataTables.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/dataTables.bootstrap.min.js}"
+	type="text/javascript"></script>
+</head>
+<body>
+	<header id="header">
+		<nav id="main-nav" class="navbar navbar-default navbar-fixed-top"
+			role="banner">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<h1>
+						<a href="" class="navbar-brand"
+							style="text-decoration: none; color: white;"> CUPONERA UDB </a>
+					</h1>
+				</div>
+
+				<div class="collapse navbar-collapse navbar-right">
+					<ul class="nav navbar-nav">
+						<li class="scroll"><a href="">Home</a></li>
+						<li class="scroll"><a href="">Canjear cupón</a></li>
+						<li></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">Usuario <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="">Cambiar contraseña</a></li>
+								<li><a href="">Cerrar sesión</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div id="formularioCanje">
+		<div class="container-fluid">
+			<div class="row">
+				<h3 class="h3">Canjear cupón</h3>
+			</div>
+			<div class="row">
+				<div class="col-md-7">
+					<!--<div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Campos requeridos</strong></div>-->
+					<form role="form" action="#"  method="GET">
+						<input type="hidden" name="operacion" value="obtener" />
+						<div class="form-group" id="codigoCupon">
+							<div class="form-group">
+								<input type="text" class="form-control col-md-7" name="codigo"
+									id="codigo"  placeholder="Ingresa el código del cupón">
+							</div>
+							<input type="submit" class="btn btn-info" id="verificar"
+								value="Verificar" name="Verificar">
+						</div>
+						<br>
+					</form>
+					<h1>Entró</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
