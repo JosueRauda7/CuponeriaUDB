@@ -15,5 +15,9 @@ public interface EmpresaRepository extends JpaRepository<Empresas, String>{
 	
 	@Query("SELECT e FROM Empresas e WHERE e.usuarios.idUsuario=?1")
 	public abstract Empresas encontrarPorUsuario(int id);
+	
+	public abstract List<Empresas> findAllByOrderByNombreEmpresa();
+
+
 
 }
