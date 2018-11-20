@@ -17,7 +17,11 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, String> {
 	
 	public abstract boolean existsByIdEmpleado(int idEmpleado);
 	
+<<<<<<< HEAD
 	@Query("SELECT e FROM Cupones e JOIN e.clientes cli JOIN e.ofertas ofer JOIN e.estadocupon esta WHERE e.codigoCupo = (?1)")
 	public abstract List<Cupones> obtenerCupon(String codigo);
+=======
+	public abstract Empleado findByIdEmpleado(int idEmpleado);
+>>>>>>> 4d93654979770ef9f8c090d81eef1833ec46fce2
 
 }

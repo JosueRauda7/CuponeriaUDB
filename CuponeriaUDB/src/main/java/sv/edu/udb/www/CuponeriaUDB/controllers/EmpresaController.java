@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -57,6 +58,18 @@ public class EmpresaController {
 	public String nuevoEmpleado(Model model) {
 		model.addAttribute("empleado", new Empleado());
 		model.addAttribute("empresas", empresaRepository.findAllByOrderByNombreEmpresa());
+		return "empresa/nuevoEmpleado";
+	}
+	
+	@GetMapping("/eliminar/{idempleado}/usuario/{idusuario}")
+	public String eliminarEmpleado(@PathVariable("idempleado") int idempleado,@PathVariable("idusuario") int idusuario
+			,Model model, RedirectAttributes atributos) {
+		
+		Usuarios usuario = new Usuarios();
+		Empleado empleado= new Empleado();
+		usuario = usuarioRepository.findByIdUsuario(idusuario);
+		empleado = empleadoRepository.findByIdEmpleado(idempleado);
+		
 		return "empresa/nuevoEmpleado";
 	}
 
@@ -104,9 +117,7 @@ public class EmpresaController {
 					empleado.setUsuarios(usuariocon);
 					empleadoRepository.save(empleado);
 					atributos.addFlashAttribute("exito", "Empleado ingresado exitosamente");
-					return "redirect:/empresa/index";
-				
-			
+					return "redirect:/empresa/index";			
 		}
 		
 	}
