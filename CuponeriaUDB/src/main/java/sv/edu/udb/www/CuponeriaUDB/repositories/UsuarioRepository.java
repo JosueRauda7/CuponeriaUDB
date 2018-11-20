@@ -13,4 +13,5 @@ public interface UsuarioRepository extends JpaRepository<Usuarios, String>{
 	
 	public abstract Usuarios findTopByConfirmadoOrderByIdUsuarioDesc(boolean confirmado);
 
+	public abstract Usuarios findByIdUsuario(int iduser);
 }

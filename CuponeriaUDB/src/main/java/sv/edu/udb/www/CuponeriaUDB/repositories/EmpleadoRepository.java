@@ -17,5 +17,7 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, String> {
 	public abstract List<Empleado> encontrarPorEmpresa(String codigo);
 	
 	public abstract boolean existsByIdEmpleado(int idEmpleado);
+	
+	public abstract Empleado findByIdEmpleado(int idEmpleado);
 
 }
