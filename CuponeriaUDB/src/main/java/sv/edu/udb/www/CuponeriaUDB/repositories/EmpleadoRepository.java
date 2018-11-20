@@ -13,4 +13,6 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, String> {
 	
 	@Query("SELECT e FROM Empleado e WHERE e.empresas.codigoEmpresa=?1")
 	public abstract List<Empleado> encontrarPorEmpresa(String codigo);
+	
+	public abstract boolean existsByIdEmpleado(int idEmpleado);
 }
