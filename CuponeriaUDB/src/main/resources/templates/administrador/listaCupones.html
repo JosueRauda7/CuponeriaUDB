@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>Lista de cupones</title>
+<link th:href="@{/css/estiloverofertas.css}" rel="stylesheet" />
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+<link th:href="@{/css/styles.css}" rel="stylesheet" />
+<link th:href="@{/css/alertify.core.css}" rel="stylesheet" />
+<link th:href="@{/css/alertify.default.css}" rel="stylesheet" />
+<link th:href="@{/css/dataTables.bootstrap.min.css}" rel="stylesheet" />
+<script th:src="@{/js/jquery-1.12.0.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/alertify.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.dataTables.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/dataTables.bootstrap.min.js}" type="text/javascript"></script>
+</head>
+<body id="home">
+	<div class="menuContainer">
+		<header id="header">
+        <nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html"><img th:src="@{/images/logo.png}" alt="logo"></a>
+                </div>
+				
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                       
+                        <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Empresas <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${pageContext.request.contextPath}/administrador.do?operacion=nuevaEmpresa">Agregar empresas</a></li>
+                        <li><a href="${pageContext.request.contextPath}/administrador.do?operacion=listarEmpresa">Ver empresas</a></li>
+                    </ul>
+                </li>
+		        
+                        <li class="scroll"><a href="${pageContext.request.contextPath}/administrador.do?operacion=listarRubro">Ver Rubros</a></li>
+                        
+                        <li class="scroll"><a href="${pageContext.request.contextPath}/administrador.do?operacion=verClientes">Ver clientes</a></li>
+                            
+                        <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Administrador <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="${pageContext.request.contextPath}/administrador.do?operacion=updateC">Cambiar contraseña</a></li>
+                        <li><a href="${pageContext.request.contextPath}/administrador.do?operacion=listarRubro">Cerrar session</a></li>
+
+
+                    </ul>
+                </li>                      
+                    </ul>
+                </div>
+            </div><!--/.container-->
+        </nav><!--/nav-->
+    </header><!--/header-->
+	</div>
+	
+	
+        <h1 class="text-center">Ofertas para la empresa</h1>
+        <div class="tab">
+
+            <button class="tablinks" onclick="openCity(event, 'Disponibles')">Disponibles</button>
+            <button class="tablinks" onclick="openCity(event, 'Canjeados')">Canjeados</button>
+            <button class="tablinks" onclick="openCity(event, 'Vencidos')">Vencidos</button>
+        </div>
+        <section class="contendatos">
+            <div id="Disponibles" class="tabcontent">
+                <c:forEach var="cuponesDisponibles" items="${requestScope.cuponesDisponibles}">
+                    <div class="contenofer">
+                        <div  class="text-center">
+                            <h3>Codigo cupon:</h3>
+                            <h4>${cuponesDisponibles.codigoCupo}</h4>
+                        </div>
+                        <div  class="text-center">
+                            <h3>Fecha compra:</h3>
+                            <h4>${cuponesDisponibles.fechaCompra}</h4>
+                        </div>
+                        <div  class="text-center">
+                            <h3>Nombre de la oferta:</h3>
+                        <h4>${cuponesDisponibles.oferta.tituloOferta}</h4>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+             <div id="Canjeados" class="tabcontent">
+                <c:forEach var="cuponesCanjeados" items="${requestScope.cuponesCanjeados}">
+                    <div class="contenofer">
+                        <div  class="text-center">
+                            <h3>Codigo cupon:</h3>
+                            <h4>${cuponesCanjeados.codigoCupo}</h4>
+                        </div>
+                        <div  class="text-center">
+                            <h3>Fecha compra:</h3>
+                            <h4>${cuponesCanjeados.fechaCompra}</h4>
+                        </div>
+                        <div  class="text-center">
+                            <h3>Fecha canje:</h3>
+                            <h4>${cuponesCanjeados.fechaCanje}</h4>
+                        </div>
+                        <div  class="text-center">
+                            <h3>Nombre de la oferta:</h3>
+                        <h4>${cuponesCanjeados.oferta.tituloOferta}</h4>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <div id="Vencidos" class="tabcontent">
+                <c:forEach var="cuponesVencidos" items="${requestScope.cuponesVencidos}">
+                    <div class="contenofer">
+                        <div  class="text-center">
+                            <h3>Codigo cupon:</h3>
+                            <h4>${cuponesVencidos.codigoCupo}</h4>
+                        </div>
+                        <div  class="text-center">
+                            <h3>Fecha compra:</h3>
+                            <h4>${cuponesVencidos.fechaCompra}</h4>
+                        </div>
+                        <div  class="text-center">
+                            <h3>Nombre de la oferta:</h3>
+                        <h4>${cuponesVencidos.oferta.tituloOferta}</h4>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </section>
+
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        &copy; 2018 Company Name. Template by <a target="_blank" href="https://webthemez.com/sports-fitness/" title="Free Bootstrap Themes and HTML Templates">WebThemez.com</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <ul class="social-icons">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li> 
+                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer><!--/#footer-->
+        <script>
+            document.getElementById("Disponibles").style.display = "block";
+            function openCity(evt, cityName) {
+
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(cityName).style.display = "block";
+
+                document.getElementById("exampleModalLabel").innerHTML = cityName;
+
+
+                evt.currentTarget.className += " active";
+            }
+        </script>
+</body>
+</html>
