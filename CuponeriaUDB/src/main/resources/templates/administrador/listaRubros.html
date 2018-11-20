@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>Lista rubros</title>
+<link th:href="@{/css/estilorubros.css}" rel="stylesheet" />
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+<link th:href="@{/css/styles.css}" rel="stylesheet" />
+<link th:href="@{/css/alertify.core.css}" rel="stylesheet" />
+<link th:href="@{/css/alertify.default.css}" rel="stylesheet" />
+<link th:href="@{/css/dataTables.bootstrap.min.css}" rel="stylesheet" />
+<script th:src="@{/js/jquery-1.12.0.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/alertify.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.dataTables.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/dataTables.bootstrap.min.js}" type="text/javascript"></script>
+</head>
+<style>
+    .alertify-message{
+        color: black;
+    }
+</style>
+<body id="home">
+        <div class="menuContainer">
+		<header id="header">
+        <nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html"><img th:src="@{/images/logo.png}" alt="logo"></a>
+                </div>
+				
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                       
+                        <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Empresas <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${pageContext.request.contextPath}/administrador.do?operacion=nuevaEmpresa">Agregar empresas</a></li>
+                        <li><a href="${pageContext.request.contextPath}/administrador.do?operacion=listarEmpresa">Ver empresas</a></li>
+                    </ul>
+                </li>
+		        
+                        <li class="scroll"><a href="${pageContext.request.contextPath}/administrador.do?operacion=listarRubro">Ver Rubros</a></li>
+                        
+                        <li class="scroll"><a href="${pageContext.request.contextPath}/administrador.do?operacion=verClientes">Ver clientes</a></li>
+                            
+                        <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Administrador <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="${pageContext.request.contextPath}/administrador.do?operacion=updateC">Cambiar contraseña</a></li>
+                        <li><a href="${pageContext.request.contextPath}/administrador.do?operacion=listarRubro">Cerrar session</a></li>
+
+
+                    </ul>
+                </li>                      
+                    </ul>
+                </div>
+            </div><!--/.container-->
+        </nav><!--/nav-->
+    </header><!--/header-->
+	</div>
+	
+        <h1 class="text-center titulo">Lista rubros</h1>
+        <section class="contentabla">
+            <table class="table table-bordered" id="tabla">
+                <thead>
+                <tr>
+                    <th>Id rubro</th>
+                    <th>Rubro</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody th:each="rubro : ${listaRubros}">
+                    <tr>
+                        <td th:text="${rubro.idRubro}"></td>
+                        <td th:text="${rubro.rubro}"><p th:id="text${rubro.idRubro}"></p>
+                            <input type="text" id="txtval${rubro.idRubro}" style="display:none;" class="form-control"></td>
+                        <td><button class="btn btn-info" id="btnmostrar${rubro.idRubro}"  ><span class="glyphicon glyphicon-edit"></span> Modificar</button>
+                            <section id="conten${rubro.idRubro}" style="display:none;" class="conten">
+                                <div style="display:flex;">
+                                <form action="${pageContext.request.contextPath}/administrador.do" method="get"> 
+                                    <button value="${rubro.idRubro}" id="btnprueba${rubro.idRubro}" name="id" class="btn btn-success">Aceptar</button>
+                                    <input type="hidden" value="modificarRubro" name="operacion">
+                                    <input type="hidden" name="rubro" id="txtprueba${rubro.idRubro}">
+                                </form>
+                                <br>
+                                <button class="btn btn-danger" id="btncancel${rubro.idRubro}">Cancelar</button>
+                                </div>
+                            </section>
+                        </td>
+                        <td><a class="btn btn-danger" href="javascript:eliminar('${rubro.idRubro}')"><span class="glyphicon glyphicon-trash"></span> Eliminar</a></td>
+                    </tr>
+                <script>
+                    document.getElementById("btnmostrar${rubro.idRubro}").addEventListener("click", function(){
+          
+    
+                        document.getElementById("btnmostrar${rubro.idRubro}").style.display="none";
+                        document.getElementById("text${rubro.idRubro}").style.display="none";
+                        document.getElementById("txtval${rubro.idRubro}").style.display="block";
+                        document.getElementById("conten${rubro.idRubro}").style.display="block";
+                        document.getElementById("txtval${rubro.idRubro}").value="${rubro.rubro}";
+                    });
+                    document.getElementById("btnprueba${rubro.idRubro}").addEventListener("click", function(){
+                        document.getElementById("txtprueba${rubro.idRubro}").value = document.getElementById("txtval${rubro.idRubro}").value;
+                    });
+                    document.getElementById("btncancel${rubro.idRubro}").addEventListener("click", function(){
+                         document.getElementById("btnmostrar${rubro.idRubro}").style.display="block";
+                        document.getElementById("text${rubro.idRubro}").style.display="block";
+                        document.getElementById("txtval${rubro.idRubro}").style.display="none";
+                        document.getElementById("conten${rubro.idRubro}").style.display="none";
+                    });
+                </script>
+                </c:forEach>
+                </tbody>
+            </table>
+        </section>
+        
+        
+        <form class="contenform" action="${pageContext.request.contextPath}/administrador.do" method="post"> 
+            <h1>Registro rubros</h1>
+            <c:if test="${not empty listaErrores}">
+                    <div class="alert alert-danger">
+                        <ul>
+                            <c:forEach var="errores"  items="${requestScope.listaErrores}">
+                                <li>${errores}</li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    </c:if>
+            <input type="hidden" value="agregarRubro" name="operacion">
+            <div class="well well-sm" style="color:#C2185B;"><strong><span class="glyphicon glyphicon-asterisk"></span>Campos requeridos</strong></div>
+            <div class="form-group">            
+                <label for="codigo">Nombre del rubro:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="rubro"  id="codigo" value="${rubro.rubro}" placeholder="Ingresa el nombre del rubro" >
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                </div>
+            </div>
+             
+            <button class="btn btn-info" type="submit">Agregar</button>
+        </form>
+        
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        &copy; 2018 Company Name. Template by <a target="_blank" href="https://webthemez.com/sports-fitness/" title="Free Bootstrap Themes and HTML Templates">WebThemez.com</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <ul class="social-icons">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li> 
+                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer><!--/#footer-->
+
+<script>
+            
+                       <c:if test="${not empty exito}">
+                           alertify.success('${exito}');
+                          <c:set var="exito" value="" scope="session" />
+                       </c:if>
+                           <c:if test="${not empty fracaso}">
+                           alertify.error('${fracaso}');
+                           <c:set var="fracaso" value="" scope="session" />
+                       </c:if>
+                           
+         function eliminar(id){
+           alertify.confirm("¿Realmente decea eliminar este genero?", function(e){
+              if(e){
+                  location.href="administrador.do?operacion=eliminarRubro&id="+ id;
+              } 
+           });
+  }
+        </script>
+        <script src="${pageContext.request.contextPath}/js/modificrub.js"></script>
+    </body>
+</html>
