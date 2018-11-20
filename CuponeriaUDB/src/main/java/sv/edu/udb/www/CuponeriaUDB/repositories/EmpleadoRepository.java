@@ -17,8 +17,7 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, String> {
 	
 	public abstract boolean existsByIdEmpleado(int idEmpleado);
 	
-	@Query("SELECT e FROM Cupones e JOIN e.clientes cli JOIN e.ofertas ofer JOIN e.estadocupon esta WHERE e.codigoCupo = (?1)")
-	public abstract List<Cupones> obtenerCupon(String codigo);
+	//@Query("SELECT e FROM Cupones e JOIN e.clientes cli JOIN e.ofertas ofer JOIN e.estadocupon esta WHERE e.codigoCupo = (?1)")
 
 	public abstract Empleado findByIdEmpleado(int idEmpleado);
 

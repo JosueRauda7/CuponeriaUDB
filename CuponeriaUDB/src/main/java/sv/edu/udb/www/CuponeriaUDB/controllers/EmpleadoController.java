@@ -8,10 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sv.edu.udb.www.CuponeriaUDB.entities.Cupones;
 import sv.edu.udb.www.CuponeriaUDB.repositories.EmpleadoRepository;
+import sv.edu.udb.www.CuponeriaUDB.repositories.CuponesRepository;
+
 
 @RequestMapping("/empleado")
 @Controller
@@ -20,6 +23,7 @@ public class EmpleadoController {
 	@Autowired
 	@Qualifier("EmpleadoRepository")	
 	EmpleadoRepository empleadoRepository;
+	CuponesRepository cuponesRepository;
 	
 	@GetMapping("/index")
 	public String homeEmpleado(Model model) {
@@ -34,10 +38,10 @@ public class EmpleadoController {
 		return "empleado/canjearCupon";
 	}
 	
-	@GetMapping("/obtenerCupon")
-	public String obtenerCupon(@Valid @ModelAttribute("cupones") Cupones cupones, Model model)  {
+	@PostMapping("/obtenerCupon")
+	public String obtenerCupon(@Valid @ModelAttribute("cupon") Cupones cupones, Model model)  {
 		
-		model.addAttribute("cupones", empleadoRepository.obtenerCupon(cupones.getCodigoCupo()));
+		model.addAttribute("cupones", cuponesRepository.findAllByCodigoCupo(cupones.getCodigoCupo()));
 		
 		return "empleado/canjearCupon";
 	}

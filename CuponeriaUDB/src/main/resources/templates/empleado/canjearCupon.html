@@ -74,7 +74,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-7">
-					<form role="form" action="#" th:action="@{/empleado/obtenerCupon}" th:object="${cupon}" method="GET">
+					<form role="form" action="#" th:action="@{/empleado/obtenerCupon}" th:object="${cupon}" method="POST">
 						<input type="hidden" name="operacion" value="obtener" />
 						<div class="form-group" id="codigoCupon">
 							<div class="form-group">
