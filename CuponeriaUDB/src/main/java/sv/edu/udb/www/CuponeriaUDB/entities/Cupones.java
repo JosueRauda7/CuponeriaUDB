@@ -23,7 +23,8 @@ import javax.persistence.TemporalType;
 public class Cupones  implements java.io.Serializable {
 
 
-     private String codigoCupo;
+     @Id
+	 private String codigoCupo;
      private Clientes clientes;
      private Estadocupon estadocupon;
      private Ofertas ofertas;

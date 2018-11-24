@@ -10,3 +10,43 @@
 #canjearCHome{
 	padding-top: 15px;
 }
+
+.h3{
+	margin-top: 3%;
+}
+
+#formObtener{
+	margin-left: 35%;
+	margin-top: 2%;
+	background: green;
+	width: 30%;
+	padding: 10px;
+}
+
+#codigo{
+	width: 115%;
+	margin-left: 35.5%;
+	margin-top: 15%;
+}
+
+#verificar{
+	margin-top: 12%;
+	margin-left: 69%;
+}
+
+#informacionCupon{
+	width: 55%;
+	margin-top: 3%;
+	margin-left: 23%;
+	padding: 10px;
+	display: block;
+}
+
+.canje{
+	width: 20%;
+}
+
+.cancelar{
+	width: 20%;
+	margin-left: 59.5%;
+}

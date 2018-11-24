@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+    <meta charset="ISO-8859-1">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="webthemez">
+        <title>Cuponera - Cliente</title>
+        <script type="text/javascript">
+            history.forward();
+        </script>
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+<link th:href="@{/css/styles.css}" rel="stylesheet" />
+<link th:href="@{/css/alertify.core.css}" rel="stylesheet" />
+<link th:href="@{/css/alertify.default.css}" rel="stylesheet" />
+<link th:href="@{/css/dataTables.bootstrap.min.css}" rel="stylesheet" />
+<script th:src="@{/js/jquery-1.12.0.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/alertify.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.dataTables.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/dataTables.bootstrap.min.js}" type="text/javascript"></script>
+    </head>
+    <body>
+        <header id="header">
+    <nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo">Cuponera</a> --> 
+                <h1> <a th:href="@{/clientes/inicio}" class="navbar-brand" style="text-decoration: none; color:white;">CUPONERA UDB</a></h1>
+            </div>
+            <div class="collapse navbar-collapse navbar-right">
+                <ul class="nav navbar-nav">
+                    <li><a th:href="@{/clientes/inicio}">Inicio</a></li>  
+                    <li><a th:href="@{/clientes/tiendaCupones}">Comprar Cupones</a></li>
+                    <li><a th:href="@{/clientes/inicio}">Mis Cupones</a></li>
+
+                    <li><a th:href="@{/clientes/inicio}">Carrito de Compras</a></li>                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuario <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/clientes/inicio}">Cambiar contraseña</a></li>
+                            <li><a th:href="@{/clientes/inicio}">Cerrar Sesión</a></li>
+                        </ul>
+                    </li> 
+
+                </ul>
+            </div>
+        </div><!--/.container-->
+    </nav><!--/nav-->
+</header><!--/header-->
+
+        <section id="mainservice" >
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title wow fadeInDown">Ofertas de Cupones</h2>
+                    <p class="wow fadeInDown">Conoce las ofertas de cupones de diferentes rubros de empresas, ahorra dinero, 
+                        ahorra tiempo y conoce muchos lugares.</p>
+                </div>
+                <!--
+                <section>
+                	
+                    <div class="col-sm-12 col-md-12">
+						<form class="form-inline" th:action="@{/clientes/filtrar}" method="POST">
+                            <div class="form-group col-sm-6">
+                                <div class="col-md-2">
+                                    <h4>Rubro: </h4>
+                                </div>
+                                <div class="col-xs-5">
+                                    <select id="rubroFiltro" name="rubroFiltro" class="form-control">
+                                        <option value="0">Todos</option>
+                                        <option th:each="rubro : ${listaRubros}" th:value="${rubro.idRubro}" th:text="${rubro.rubro}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-2">
+                                    <input type="submit" name="filtrar" class="btn btn-primary" value="Filtrar"/>
+                                </div>
+                            </div>
+                        </form>
+                        
+                    </div>
+                    <br><br><br>
+                </section>
+                 -->
+                <div class="row">
+                        <div class="col-sm-6 col-md-4" th:each="ofertas : ${listaOfertas}">
+                            <div class="thumbnail">
+                                <img class="img-responsive" style="max-height: 200px; min-height: 200px;" th:src="${'/images/'+ofertas.urlFoto}" alt="">
+                                <div class="caption">
+                                    <h3 th:text="${ofertas.tituloOferta}"></h3>
+                                    <p><h4>Cantidad Limite:<span th:text="${ofertas.cantidadLimite}"></span></h4></p>
+                                    <p>Descripcion:<br><span th:text="${ofertas.descripcionOferta}"></span></p>
+                                    <p class="price">Fecha fin: <span th:text="${ofertas.fechaFin}"></span></p>
+                                    <p class="price">Fecha Limite: <span th:text="${ofertas.fechaLimite}"></span></p>
+                                    <p><h4>Precio Regular: $ <span th:text="${ofertas.precioRegular}"></span></h4></p>
+                                    <p><h4>Precio Oferta: $ <span th:text="${ofertas.precioOferta}"></span></h4></p>
+                                    <a class="btn btn-primary" th:href="${'javascript:agregar('+ofertas.idOferta+')'}">Comprar</a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </section>
+       
+        <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" style="text-align: center;">
+                    &copy; 2018 CUPONERIA UDB. Template by <a target="_blank" href="https://webthemez.com/sports-fitness/" title="Free Bootstrap Themes and HTML Templates">WebThemez.com</a>
+                </div>
+            </div>
+        </div>
+    </footer><!--/#footer-->
+    <script type="text/javascript">
+            function agregar(id) {
+                alertify.confirm('Desea agregar este cupon del carrito de compras?', function (e) {
+                    if (e) {
+                        location.href = '/clientes/agregar/' + id;
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

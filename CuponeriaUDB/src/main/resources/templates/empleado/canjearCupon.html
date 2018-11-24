@@ -4,10 +4,10 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Canjear Cupón</title>
+<title>Canjear CupÃ³n</title>
 
 <!-- CSS -->
 <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
@@ -34,62 +34,58 @@
 	type="text/javascript"></script>
 </head>
 <body>
-	<header id="header">
-		<nav id="main-nav" class="navbar navbar-default navbar-fixed-top"
-			role="banner">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<h1>
-						<a href="" class="navbar-brand"
-							style="text-decoration: none; color: white;"> CUPONERA UDB </a>
-					</h1>
-				</div>
-
-				<div class="collapse navbar-collapse navbar-right">
-					<ul class="nav navbar-nav">
-						<li class="scroll"><a href="">Home</a></li>
-						<li class="scroll"><a href="">Canjear cupón</a></li>
-						<li></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Usuario <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="">Cambiar contraseña</a></li>
-								<li><a href="">Cerrar sesión</a></li>
-							</ul></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header>
+	<header th:insert="empleado/menu.html :: header"> </header>
 	<div id="formularioCanje">
 		<div class="container-fluid">
 			<div class="row">
-				<h3 class="h3">Canjear cupón</h3>
+				<h3 class="h3 text-center">Canjear cupÃ³n</h3>
 			</div>
-			<div class="row">
+			<div class="row" id="formObtener">
 				<div class="col-md-7">
-					<form role="form" action="#" th:action="@{/empleado/obtenerCupon}" th:object="${cupon}" method="POST">
+					<form role="form" action="#" th:action="@{/empleado/obtenerCupon}"
+						th:object="${cupon}" method="POST">
 						<input type="hidden" name="operacion" value="obtener" />
 						<div class="form-group" id="codigoCupon">
 							<div class="form-group">
 								<input type="text" class="form-control col-md-7" name="codigo"
-									id="codigo" th:field="*{codigoCupo}" placeholder="Ingresa el código del cupón">
+									id="codigo" th:field="*{codigoCupo}"
+									placeholder="Ingresa el cÃ³digo del cupÃ³n">
 							</div>
-							<input type="submit" class="btn btn-info" id="verificar"
+							<input type="submit" class="btn btn-primary" id="verificar"
 								value="Verificar" name="Verificar">
 						</div>
 						<br>
 					</form>
 				</div>
 			</div>
+			<div class="row" id="informacionCupon">
+				<table class="table table-bordered" id="tabla">
+					<thead>
+						<tr>
+							<th>CÃ³digo cupÃ³n</th>
+							<th>Estado</th>
+							<th>Fecha de compra</th>
+							<th>Fecha de canje</th>
+							<th>Cliente</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cupones : ${cupones}">
+							<td th:text="${cupones.codigoCupo}"></td>
+							<td th:text="${cupones.estadocupon.estado}"></td>
+							<td th:text="${cupones.fechaCompra}"></td>
+							<td th:text="${cupones.fechaCanje}"></td>
+							<td th:text="${cupones.clientes.nombreClientes}"></td>
+					</tbody>
+				</table>
+				<a class="btn btn-success canje" th:href="@{/empleado/index}">Canjear</a>
+				<a class="btn btn-danger cancelar" href="#">Cancelar</a>
+
+			</div>
 		</div>
 	</div>
+
+	<script th:src="@{/js/empleado.js}"></script>
 </body>
 
 </html>
