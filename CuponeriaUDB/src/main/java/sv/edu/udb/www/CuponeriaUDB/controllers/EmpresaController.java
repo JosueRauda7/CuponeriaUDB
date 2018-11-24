@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import sv.edu.udb.www.CuponeriaUDB.configuration.Correo;
 import sv.edu.udb.www.CuponeriaUDB.entities.Empleado;
 import sv.edu.udb.www.CuponeriaUDB.entities.Empresas;
 import sv.edu.udb.www.CuponeriaUDB.entities.Tipousuario;
@@ -33,7 +34,6 @@ import sv.edu.udb.www.CuponeriaUDB.repositories.UsuarioRepository;
 @Controller
 public class EmpresaController {
 
-
 	@Autowired
 	@Qualifier("EmpresaRepository")
 	EmpresaRepository empresaRepository;
@@ -41,7 +41,7 @@ public class EmpresaController {
 	@Autowired
 	@Qualifier("EmpleadoRepository")
 	EmpleadoRepository empleadoRepository;
-	
+
 	@Autowired
 	@Qualifier("UsuarioRepository")
 	UsuarioRepository usuarioRepository;
@@ -60,24 +60,40 @@ public class EmpresaController {
 		model.addAttribute("empresas", empresaRepository.findAllByOrderByNombreEmpresa());
 		return "empresa/nuevoEmpleado";
 	}
-	
-	@GetMapping("/eliminar/{idempleado}/usuario/{idusuario}")
-	public String eliminarEmpleado(@PathVariable("idempleado") int idempleado,@PathVariable("idusuario") int idusuario
-			,Model model, RedirectAttributes atributos) {
-		
-		Usuarios usuario = new Usuarios();
-		Empleado empleado= new Empleado();
-		usuario = usuarioRepository.findByIdUsuario(idusuario);
+
+	@GetMapping("/modificar/{idempleado}")
+	public String modificarEmpleado(Model model, @PathVariable("idempleado") int idempleado) {
+		Empleado empleado = new Empleado();
+
 		empleado = empleadoRepository.findByIdEmpleado(idempleado);
-		
-		return "empresa/nuevoEmpleado";
+		Usuarios usuario = new Usuarios();
+		usuario = empleado.getUsuarios();
+		model.addAttribute("empleado", empleado);
+		model.addAttribute("usuarios", usuario);
+		return "empresa/modificarEmpleado";
 	}
 
-	
+	@GetMapping("/eliminar/{idempleado}")
+	public String eliminarEmpleado(@PathVariable("idempleado") int idempleado, Model model,
+			RedirectAttributes atributos) {
+
+		Usuarios usuario = new Usuarios();
+		Empleado empleado = new Empleado();
+
+		empleado = empleadoRepository.findByIdEmpleado(idempleado);
+		usuario = usuarioRepository.findByIdUsuario(empleado.getUsuarios().getIdUsuario());
+
+		empleadoRepository.delete(empleado);
+		usuarioRepository.delete(usuario);
+
+		atributos.addFlashAttribute("exito", "Empleado eliminado exitosamente");
+		return "redirect:/empresa/index";
+	}
+
 	@PostMapping("/agregar")
 	public String agregarEmpleado(@Valid @ModelAttribute("editorial") Empleado empleado, BindingResult result,
 			Model model, RedirectAttributes atributos) throws NoSuchAlgorithmException {
-		
+
 		String cadenaAleatoria = UUID.randomUUID().toString();
 		char[] caracteres;
 		caracteres = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
@@ -88,38 +104,60 @@ public class EmpresaController {
 		for (int i = 0; i < 8; i++) {
 			pass += caracteres[new Random().nextInt(62)];
 		}
-		
 
-        MessageDigest SHA256 = MessageDigest.getInstance("SHA-256");
-        byte[] valores = SHA256.digest(pass.getBytes());
+		MessageDigest SHA256 = MessageDigest.getInstance("SHA-256");
+		byte[] valores = SHA256.digest(pass.getBytes());
 
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < valores.length; i++) {
-            sb.append(Integer.toString((valores[i] & 0xff) + 0x100,
-                    16).substring(1));
-        }
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < valores.length; i++) {
+			sb.append(Integer.toString((valores[i] & 0xff) + 0x100, 16).substring(1));
+		}
 
 		if (result.hasErrors()) {
 			model.addAttribute("empleado", empleado);
 			return "empresa/nuevoEmpleado";
-		}else {
-			
-				Tipousuario tipousuario = new Tipousuario();
-				tipousuario.setIdTipoUsuario(3);
-				empleado.getUsuarios().setContrasena(sb.toString());
-				empleado.getUsuarios().setIdConfirmacion(cadenaAleatoria);
-				empleado.getUsuarios().setConfirmado(false);
-				empleado.getUsuarios().setTipousuario(tipousuario);
-				empleado.setEmpresas(empresaRepository.encontrarPorUsuario(12));
-				usuarioRepository.save(empleado.getUsuarios());
-				
-					Usuarios usuariocon = usuarioRepository.findTopByConfirmadoOrderByIdUsuarioDesc(false);
-					empleado.setUsuarios(usuariocon);
-					empleadoRepository.save(empleado);
-					atributos.addFlashAttribute("exito", "Empleado ingresado exitosamente");
-					return "redirect:/empresa/index";			
+		} else {
+
+			Tipousuario tipousuario = new Tipousuario();
+			tipousuario.setIdTipoUsuario(3);
+			empleado.getUsuarios().setContrasena(sb.toString());
+			empleado.getUsuarios().setIdConfirmacion(cadenaAleatoria);
+			empleado.getUsuarios().setConfirmado(false);
+			empleado.getUsuarios().setTipousuario(tipousuario);
+			empleado.setEmpresas(empresaRepository.encontrarPorUsuario(12));
+			usuarioRepository.save(empleado.getUsuarios());
+			   String texto = "<h1>Bienvendo a La cuponera</h1><p>Tu usuario es: "+empleado.getUsuarios().getCorreo()+"</p><p>Tu contaseña es:"+pass+"</p>";
+               Correo correo = new Correo();
+               correo.setAsunto("Credenciales");
+               correo.setMensaje(texto);
+               correo.setDestinatario(empleado.getUsuarios().getCorreo());
+               correo.enviarCorreo();
+			Usuarios usuariocon = usuarioRepository.findTopByConfirmadoOrderByIdUsuarioDesc(false);
+			empleado.setUsuarios(usuariocon);
+			empleadoRepository.save(empleado);
+			atributos.addFlashAttribute("exito", "Empleado ingresado exitosamente");
+			return "redirect:/empresa/index";
 		}
-		
+
+	}
+
+	@PostMapping("/update")
+	public String updateEmpleado(@Valid @ModelAttribute("editorial") Empleado empleado,
+		 BindingResult result, Model model,
+			RedirectAttributes atributos) throws NoSuchAlgorithmException {
+
+		if (result.hasErrors()) {
+			model.addAttribute("empleado", empleado);
+			return "empresa/modificarEmpleado";
+		} else {
+
+			
+			empleadoRepository.save(empleado);
+			usuarioRepository.save(empleado.getUsuarios());
+			atributos.addFlashAttribute("exito", "Empleado modificado exitosamente");
+			return "redirect:/empresa/index";
+		}
+
 	}
 
 }

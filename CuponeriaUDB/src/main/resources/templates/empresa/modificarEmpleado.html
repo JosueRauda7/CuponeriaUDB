@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="webthemez">
+<title>Cuponera - Empleado</title>
+<!-- core CSS -->
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+<link th:href="@{/css/animate.min.css}" rel="stylesheet">
+<link th:href="@{/css/prettyPhoto.css}" rel="stylesheet">
+<link th:href="@{/css/styles.css}" rel="stylesheet">
+<link th:href="@{/css/dataTables.bootstrap.min.css}" rel="stylesheet"
+	type="text/css" />
+<link th:href="@{/css/alertify.core.css}" rel="stylesheet"
+	type="text/css" />
+<link th:href="@{/css/alertify.default.css}" rel="stylesheet"
+	type="text/css" />
+<script th:src="@{/js/alertify.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery-1.12.0.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.dataTables.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/dataTables.bootstrap.min.js}"
+	type="text/javascript"></script>
+</head>
+<body>
+
+<header th:insert="empresa/menuEmpresa.html :: header"> </header>
+	<section>
+		<div class="panel panel-default col-lg-6 col-sm-offset-3"
+			style="margin-top: 5%; margin-bottom: 5%;">
+			<div class="row">
+				<div class="thumbnail">
+					<h2 style="color: #c2185b;">Nuevo Empleado</h2>
+				</div>
+
+				<form action="#" th:action="@{/empresa/update}"
+					th:object="${empleado}" method="POST" style="padding: 5%;">
+					
+				<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+					<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+				</ul>
+				<input th:field="*{idEmpleado}" type="hidden">
+				
+				<input th:field="*{empresas}" type="hidden">
+				
+					<div class="col-md-12" style="padding-bottom: 3%;">
+						<div class="well well-sm">
+							<strong style="color: purple;"><span
+								class="glyphicon glyphicon-asterisk"></span>Campos requeridos</strong>
+						</div>
+						<div class="form-group">
+							<label for="nombre" style="color: black;">Nombres:</label>
+							<div class="input-group">
+								<input type="text" name="nombre" id="nombre"
+									class="form-control" th:field="*{nombreEmpleado}" /> <span
+									class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="apellido" style="color: black;">Apellidos:</label>
+							<div class="input-group">
+								<input type="text" name="apellido" id="apellido"
+									class="form-control" th:field="*{apellidoEmpleado}" /> <span
+									class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="correo" style="color: black;">Correo:</label>
+							<div class="input-group">
+								<input type="text" name="correo" id="correo"
+									class="form-control" th:field="*{usuarios.correo}" /> <span
+									class="input-group-addon"><span
+									class="glyphicon glyphicon-asterisk"></span></span>
+									<input th:field="*{usuarios.idUsuario}" type="hidden">
+									<input th:field="*{usuarios.contrasena}" type="hidden">
+									<input th:field="*{usuarios.confirmado}" type="hidden">
+									<input th:field="*{usuarios.idConfirmacion}" type="hidden">
+									
+									<input th:field="*{usuarios.tipousuario.idTipoUsuario}" type="hidden">
+							</div>
+						</div>
+
+						<button type="submit" class="btn"
+							style="background-color: #c2185b">Registrar</button>
+						<button type="reset" class="btn btn-info">Limpiar</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>
