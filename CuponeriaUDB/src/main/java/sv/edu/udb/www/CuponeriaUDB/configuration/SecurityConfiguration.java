@@ -20,11 +20,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             .antMatchers("/css/**", "/js/**","/images/**","/empresa/**","/administrador/**").permitAll()
             
             .antMatchers("/css/**", "/js/**", "/empleado/**", "/fonts/**", "/images/**").permitAll()
+            
+            //.antMatchers("/css/**", "/js/**", "/login**", "/fonts/**", "/images/**").permitAll()
 
             .anyRequest().authenticated()
             .and()
-            .formLogin().loginPage("/login").defaultSuccessUrl("/editoriales/list")
-            .usernameParameter("usuario").passwordParameter("password")
+            .formLogin().loginPage("/login").defaultSuccessUrl("/login")
+            .usernameParameter("correo").passwordParameter("password")
             .permitAll();
 
     }
