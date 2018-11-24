@@ -7,7 +7,7 @@ import sv.edu.udb.www.CuponeriaUDB.entities.Usuarios;
 
 
 @Repository("UsuarioRepository")
-public interface UsuarioRepository extends JpaRepository<Usuarios, String>{
+public interface UsuarioRepository extends JpaRepository<Usuarios, Integer>{
 	
 	public abstract boolean existsByIdUsuario(int iduser);
 	

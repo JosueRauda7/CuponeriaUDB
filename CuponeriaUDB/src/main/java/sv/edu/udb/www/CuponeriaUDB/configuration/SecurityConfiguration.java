@@ -13,19 +13,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
+		
         http
         .authorizeRequests()
 
-            .antMatchers("/css/**", "/js/**","/empresa/**", "/fonts/**","/images/**" ).permitAll()
-            .antMatchers("/css/**", "/js/**","/images/**","/empresa/**","/administrador/**").permitAll()
-            
-            .antMatchers("/css/**", "/js/**", "/empleado/**", "/fonts/**", "/images/**").permitAll()
-
-            .anyRequest().authenticated()
-            .and()
-            .formLogin().loginPage("/login").defaultSuccessUrl("/editoriales/list")
-            .usernameParameter("usuario").passwordParameter("password")
-            .permitAll();
+        .antMatchers("/css/**", "/js/**","/empresa/**", "/fonts/**","/images/**" ).permitAll()
+          .antMatchers("/css/**", "/js/**","/images/**","/empresa/**","/administrador/**").permitAll()
+        .antMatchers("/css/**", "/js/**", "/empleado/**", "/fonts/**", "/images/**").permitAll()
+            .antMatchers("/css/**", "/js/**", "/cliente/**", "/fonts/**", "/images/**").permitAll();
+            //.anyRequest().authenticated()
+            //.and()
+            //.formLogin().loginPage("/login").defaultSuccessUrl("/editoriales/list")
+            //.usernameParameter("usuario").passwordParameter("password")
+            //.permitAll();
 
     }
 
