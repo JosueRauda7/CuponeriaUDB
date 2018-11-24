@@ -28,6 +28,7 @@ import sv.edu.udb.www.CuponeriaUDB.entities.Tipousuario;
 import sv.edu.udb.www.CuponeriaUDB.entities.Usuarios;
 import sv.edu.udb.www.CuponeriaUDB.repositories.EmpleadoRepository;
 import sv.edu.udb.www.CuponeriaUDB.repositories.EmpresaRepository;
+import sv.edu.udb.www.CuponeriaUDB.repositories.OfertasRepository;
 import sv.edu.udb.www.CuponeriaUDB.repositories.UsuarioRepository;
 
 @RequestMapping("/empresa")
@@ -45,6 +46,11 @@ public class EmpresaController {
 	@Autowired
 	@Qualifier("UsuarioRepository")
 	UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	@Qualifier("OfertasRepository")
+	OfertasRepository ofertasRepository;
+
 
 	@GetMapping("/index")
 	public String indexEmpresa(Model model) {
@@ -159,5 +165,14 @@ public class EmpresaController {
 		}
 
 	}
+	
+	@GetMapping("/verofertas")
+	public String verOfertas(Model model) {
+		
+		model.addAttribute("lista", ofertasRepository.listaOfertas(12, 1));
+		return "empresa/listaOfertas";
+	}
+	
+	
 
 }
