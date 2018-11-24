@@ -70,31 +70,27 @@
     </header><!--/header-->
 	</div>
 
-        <form class="contenform" action="${pageContext.request.contextPath}/administrador.do" method="post"> 
+        <form role="form"  method="POST" action="#" class="contenform"
+                    th:action="@{/administrador/modificar}" th:object="${empresa}">
             <h1>Registro empresas</h1>
-            <c:if test="${not empty listaErrores}">
-                <div class="alert alert-danger">
-                    <ul>
-                        <c:forEach var="errores"  items="${requestScope.listaErrores}">
-                            <li>${errores}</li>
-                            </c:forEach>
-                    </ul>
-                </div>
-            </c:if>
+            <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+				<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+			</ul>
+            
             <input type="hidden" value="editarEmpresa" name="operacion">
-            <input type="hidden" value="${empresa.codigoEmpresa}" name="codigoEmpresa">
+            <input type="hidden" th:field="*{codigoEmpresa}" name="codigoEmpresa">
             <div class="well well-sm" style="color:#C2185B;"><strong><span class="glyphicon glyphicon-asterisk"></span>Campos requeridos</strong></div>
             <div class="form-group">            
                 <label for="codigo">Nombre de la empresa:</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="nombreEmpresa"  id="codigo" value="${empresa.nombreEmpresa}" placeholder="Ingresa el nombre de la empresa" >
+                    <input type="text" class="form-control" name="nombreEmpresa"  id="codigo" th:field="*{nombreEmpresa}" placeholder="Ingresa el nombre de la empresa" >
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
             </div>
             <div class="form-group">            
                 <label for="codigo">Nombre del contacto:</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="nombreContacto"  id="codigo" value="${empresa.nombreContacto}" placeholder="Ingresa el nombre del contacto" >
+                    <input type="text" class="form-control" name="nombreContacto"  id="codigo" th:field="*{nombreContacto}" placeholder="Ingresa el nombre del contacto" >
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
             </div>
@@ -102,23 +98,25 @@
             <div class="form-group">            
                 <label for="codigo">Dirección:</label>
                 <div class="input-group col-md-12">
-                    <textarea class="form-control" placeholder="Ingresa la dirección" name="direccion" style="text-align-last:start; ">${empresa.direccion}</textarea>
+                    <textarea class="form-control" placeholder="Ingresa la dirección" name="direccion" style="text-align-last:start; " th:field="*{direccion}"></textarea>
                 </div>
             </div>
             <div class="form-group">            
                 <label for="codigo">Telefono:</label>
                 <div class="input-group">
-                    <input type="tel" class="form-control" name="telefono"  id="codigo" value="${empresa.telefono}" placeholder="Ingresa el numero de telefono" >
+                    <input type="tel" class="form-control" name="telefono"  id="codigo" th:field="*{telefono}" placeholder="Ingresa el numero de telefono" >
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
             </div>
             <div class="form-group">            
                 <label for="codigo">Rubro al que pertenece:</label>
                 <div class="input-group">
-                    <select class="form-control" name="rubro" id="rubro">
-                        <c:forEach var="rubros" items="${requestScope.listaRubros}">
-                            <option value="${rubros.idRubro}">${rubros.rubro}</option>
-                        </c:forEach>
+                    <select class="form-control" name="rubro" 
+                    id="rubro" th:field="*{rubros.idRubro}">
+                        <option th:each="rubro : ${listaRubros}" 
+                        th:utext="${rubro.rubro}" th:value="${rubro.idRubro}">
+                        </option>
+                        
                     </select>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
@@ -126,7 +124,7 @@
             <div class="form-group">            
                 <label for="codigo">Comisión:</label>
                 <div class="input-group">
-                    <input type="number" step="any" class="form-control" name="comision"  id="codigo" value="${empresa.comision}" placeholder="Ingresa la comisión" >
+                    <input type="number" step="any" class="form-control" name="comision"  id="codigo" th:field="*{comision}" placeholder="Ingresa la comisión" >
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
             </div>

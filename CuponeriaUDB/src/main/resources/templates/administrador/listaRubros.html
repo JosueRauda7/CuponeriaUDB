@@ -104,7 +104,8 @@
                                 </div>
                             </section>
                         </td>
-                        <td><a class="btn btn-danger" href="javascript:eliminar('${rubro.idRubro}')"><span class="glyphicon glyphicon-trash"></span> Eliminar</a></td>
+                        <td><a class="btn btn-danger" th:href="'javascript:eliminar(\'' +${rubro.idRubro}+ '\')'">
+                        <span class="glyphicon glyphicon-trash"></span> Eliminar</a></td>
                     </tr>
                 <script>
                     document.getElementById("btnmostrar${rubro.idRubro}").addEventListener("click", function(){
@@ -126,7 +127,6 @@
                         document.getElementById("conten${rubro.idRubro}").style.display="none";
                     });
                 </script>
-                </c:forEach>
                 </tbody>
             </table>
         </section>
@@ -188,9 +188,9 @@
                        </c:if>
                            
          function eliminar(id){
-           alertify.confirm("¿Realmente decea eliminar este genero?", function(e){
+           alertify.confirm("¿Realmente decea eliminar este rubro?", function(e){
               if(e){
-                  location.href="administrador.do?operacion=eliminarRubro&id="+ id;
+                  location.href="/administrador/eliminar/"+ id;
               } 
            });
   }

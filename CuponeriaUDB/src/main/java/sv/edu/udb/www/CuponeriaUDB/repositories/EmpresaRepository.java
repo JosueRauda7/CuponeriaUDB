@@ -17,7 +17,8 @@ public interface EmpresaRepository extends JpaRepository<Empresas, String>{
 	public abstract Empresas encontrarPorUsuario(int id);
 	
 	public abstract List<Empresas> findAllByOrderByNombreEmpresa();
-
+	
+	public abstract Empresas findByCodigoEmpresa(String codigo);
 
 
 }
