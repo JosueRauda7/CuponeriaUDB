@@ -19,6 +19,9 @@ public interface EmpresaRepository extends JpaRepository<Empresas, String>{
 	public abstract List<Empresas> findAllByOrderByNombreEmpresa();
 	
 	public abstract Empresas findByCodigoEmpresa(String codigo);
+	
+	@Query("SELECT SUBSTRING(MAX(e.codigoEmpresa) , 4,6) AS Numero FROM Empresas e")
+	public abstract Integer generarCodigoEmpresa();
 
 
 }
