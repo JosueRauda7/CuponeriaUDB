@@ -62,10 +62,10 @@
 								<td th:text="${empleado.usuarios.correo}"></td>
 								<td th:text="${empleado.empresas.nombreEmpresa}"></td>
 								<td><a class="btn btn-info"
-									href="${pageContext.request.contextPath}/empresas.do?operacion=obtener&id=${empleado.idEmpleado}"><span
+									th:href="@{'/empresa/modificar/'+${empleado.idEmpleado}}"><span
 										class="glyphicon glyphicon-edit"> </span>Editar</a> <a
 									class="btn btn-danger"
-									href="javascript:eliminar('${empleado.idEmpleado}')"> <span
+									th:href="'javascript:eliminar(\''+${empleado.idEmpleado}+ '\')'"> <span
 										class="glyphicon glyphicon-trash"></span>Eliminar</a></td>
 						</tbody>
 					</table>
@@ -87,15 +87,16 @@ alertify.success(mensaje);
 var mensaje= document.getElementById("mensaje").textContent;
 alertify.success(mensaje);
 </script>
+
 <script>
         $(document).ready(function (){
            $('#tabla').DataTable(); 
         }); 
                          
-        function eliminar(id){
+        function eliminar(id, id2){
             alertify.confirm('¿Realmente desea eliminar este empleado?', function(e){
                 if(e){
-                	ocation.href="/empresa/eliminar/" + id+"/usuario/" +i2;
+                	location.href="/empresa/eliminar/" + id;
                 }
             });
         }
